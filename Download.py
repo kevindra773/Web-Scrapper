@@ -8,10 +8,6 @@ if __name__ == '__main__':
         os.chdir(r"C:\Users\maroc\Desktop\GitHub\Web-Scrapper")
 
     dossier()
-import MangaFoxScrapper as MF
-import MangaLeno as ML
-import MangaReaderScrapper as MR
-import MangaZuki as MZ
 import ScanFr as SF
 import LelScan as LS
 import ScanVF as SV
@@ -72,14 +68,6 @@ class Site:
 
 
     def Navigate(self):
-        if 'mangafox' in self.url:
-            [self.soup,self.ListeLiens] = MF.Navigate(self.url)
-        if 'manganelo' in self.url or 'mangakakalot' in self.url:
-            [self.soup,self.ListeLiens] = ML.Navigate(self.url)
-        if 'mangareader' in self.url:
-            [self.soup,self.ListeLiens] = MR.Navigate(self.url)
-        if 'mangazuki' in self.url:
-            [self.soup,self.ListeLiens] = MZ.Navigate(self.url)
         if 'scan-fr' in self.url:
             [self.soup,self.ListeLiens] = SF.Navigate(self.url)
         if 'https://www.lelscan-vf.com/' in self.url:
@@ -93,14 +81,6 @@ class Site:
         if 'scantrad' in self.url:
             [self.soup,self.ListeLiens] = ST.Navigate(self.url)
     def Next(self):
-        if 'mangafox' in self.url:
-            self.url = MF.Next(self.soup)
-        if 'manganelo' in self.url or 'mangakakalot' in self.url:
-            self.url = ML.Next(self.soup)
-        if 'mangareader' in self.url:
-            self.url = MR.Next(self.soup)
-        if 'mangazuki' in self.url:
-            self.url = MZ.Next(self.soup)
         if 'svan-vf' in self.url:
             self.url = SV.chapitre(self.url,self.chap)
         if 'scan-fr'in self.url:
@@ -115,26 +95,6 @@ class Site:
             self.url = LSN.Next(self.url)
         if 'scantrad' in self.url:
             self.url = ST.Next(self.soup,self.url)
-    def Chapter(self):
-        if 'mangafox' in self.url:
-            n = self.url.find('/chapter')
-            m = self.url[n+1:].find('-')
-            self.chapter = self.url[n+1:n+m+3]
-        if 'manganelo' in self.url or 'mangakakalot' in self.url:
-            n = self.url.find("/chapter")
-            m = self.url[n+1:].find('/c')
-            self.chapter = url[n+m+2:]
-        if 'mangareader' in self.url:
-            n= self.url.find('reader')
-            m=url[n:].find('/')
-            l = url[n+m+1:].find('/')
-            k = url[n+m+1+l+1:].find('/')
-            nom = self.url[n+m+1:m+n+k+l+2]
-            nom.replace('/','_')
-            self.url = nom
-        if 'mangazuki' in self.url:
-            n = self.url.find("chapter")
-            self.chapter = self.url[n:-1]
 
     def DownloadListe(self):
         for lien in self.ListeLiens:
